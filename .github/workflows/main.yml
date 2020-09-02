@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -22,18 +20,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Minify JS
-      - name: Auto Minify
+      - name: Minify JS
         uses: nizarmah/auto-minify@v1.9
         with:
           directory: 'js'
 
-      - name: Git Auto Commit
+      - name: Minify CSS
+        uses: nizarmah/auto-minify@v1.9
+        with:
+          directory: 'css'
+
+      - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4.4.1
         with:
           # Commit message
           commit_message: 'GitHub Action: Auto-minified JS and CSS files'
           # Git branch name, where changes should be pushed too. Required if Action is used on the `pull_request` event
           branch: ${{ github.ref }}
-          # Local file path to the git repository. Defaults to the current directory (`.`)
-          repository: 'js'
