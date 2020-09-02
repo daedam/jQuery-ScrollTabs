@@ -61,8 +61,8 @@
       });
 
       // If mousewheel function not present, don't utilize it
-      if($.isFunction($.fn.mousewheel)){
-        $('.scroll_tab_inner', this).mousewheel(function(event, delta){
+      if(typeof $.fn.mousewheel === 'function'){
+        $('.scroll_tab_inner', this).trigger('mousewheel', function(event, delta){
           // Only do mousewheel scrolling if scrolling is necessary
           if($('.scroll_tab_right_button', _this).css('display') !== 'none'){
             this.scrollLeft -= (delta * 30);
@@ -146,7 +146,7 @@
   
       var press_and_hold_timeout;
       
-      $('.scroll_tab_right_button', this).mousedown(function(e){
+      $('.scroll_tab_right_button', this).trigger('mousedown', function(e){
         e.stopPropagation();
         var scrollRightFunc = function(){
           var left = $('.scroll_tab_inner', _this).scrollLeft(); 
@@ -158,15 +158,15 @@
         press_and_hold_timeout = setInterval(function(){
           scrollRightFunc();
         }, opts.scroll_duration);
-      }).bind("mouseup mouseleave", function(){
+      }).on("mouseup mouseleave", function(){
         clearInterval(press_and_hold_timeout);
-      }).mouseover(function(){
+      }).trigger('mouseover', function(){
         $(this).addClass('scroll_arrow_over').addClass('scroll_tab_right_button_over');
-      }).mouseout(function(){
+      }).trigger('mouseout', function(){
         $(this).removeClass('scroll_arrow_over').removeClass('scroll_tab_right_button_over');
       });
       
-      $('.scroll_tab_left_button', this).mousedown(function(e){
+      $('.scroll_tab_left_button', this).trigger('mousedown', function(e){
         e.stopPropagation();
         var scrollLeftFunc = function(){
           var left = $('.scroll_tab_inner', _this).scrollLeft(); 
@@ -178,15 +178,15 @@
         press_and_hold_timeout = setInterval(function(){
           scrollLeftFunc();
         }, opts.scroll_duration);
-      }).bind("mouseup mouseleave", function(){
+      }).on("mouseup mouseleave", function(){
         clearInterval(press_and_hold_timeout);
-      }).mouseover(function(){
+      }).trigger('mouseover', function(){
         $(this).addClass('scroll_arrow_over').addClass('scroll_tab_left_button_over');
-      }).mouseout(function(){
+      }).trigger('mouseout', function(){
         $(this).removeClass('scroll_arrow_over').removeClass('scroll_tab_left_button_over');
       });
       
-      $('.scroll_tab_inner > '+this.itemTag+(this.itemTag !== 'span' ? ', .scroll_tab_inner > span' : ''), this).mouseover(function(){
+      $('.scroll_tab_inner > '+this.itemTag+(this.itemTag !== 'span' ? ', .scroll_tab_inner > span' : ''), this).trigger('mouseover', function(){
         $(this).addClass('scroll_tab_over');
         if($(this).hasClass('scroll_tab_left_finisher')){
           $('.scroll_tab_inner > '+_this.itemTag+'.scroll_tab_first', _this).addClass('scroll_tab_over').addClass('scroll_tab_first_over');
@@ -200,7 +200,7 @@
         if($(this).hasClass('scroll_tab_last') || $('.scroll_tab_inner > '+_this.itemTag+'.scroll_tab_first', _this).hasClass('scroll_tab_last')){
           $('.scroll_tab_inner > span.scroll_tab_right_finisher', _this).addClass('scroll_tab_over').addClass('scroll_tab_right_finisher_over');
         }
-      }).mouseout(function(){
+      }).trigger('mouseout', function(){
         $(this).removeClass('scroll_tab_over');
         if($(this).hasClass('scroll_tab_left_finisher')){
           $('.scroll_tab_inner > '+_this.itemTag+'.scroll_tab_first', _this).removeClass('scroll_tab_over').removeClass('scroll_tab_first_over');
