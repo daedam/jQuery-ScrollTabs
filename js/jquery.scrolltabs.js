@@ -8,9 +8,10 @@
  * Known Limitations:
  *  IE6 problems, it does not properly apply scrolling and therefore is always the 'full width.' Additionally, the multiple-class CSS styling does not work
  *  properly in IE6. We can work around this in the future by apply distinct class stylings that represent all the combinations. 
- *
- * Version:   2.0 
- * Author:    Josh Reed
+ */
+/*!
+ * jQuery ScrollTabs 2.0
+ * Original author: Josh Reed (https://github.com/joshreed/jQuery-ScrollTabs)
  */
 (function($) {
   $.fn.scrollTabs = function(opts){
